@@ -12,7 +12,7 @@ uploaded_file = st.file_uploader("Choose an image", type=["jpg", "jpeg", "png"])
 if uploaded_file is None:
     st.info("Please upload an image to continue.")
 else:
-    image = Image.open(uploaded_file)
+    image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_container_width=True)
 
     save_path = f"uploaded_{uploaded_file.name}"
@@ -21,6 +21,7 @@ else:
 
     # Resize to reduce computation load
     image = image.resize((200, 200))
+
     img_np = np.array(image)
 
     pixels = img_np.reshape(-1, 3)
